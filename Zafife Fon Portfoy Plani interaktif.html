@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zeynep Afife — Fon Portföyü Planı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EAEDE9;
+  --card:#F6F7F4;
+  --ink:#12312C;
+  --ink-soft:#3D5A54;
+  --muted:#7A8A85;
+  --gold:#A67C2E;
+  --pos:#2F6B4F;
+  --neg:#9C3A2C;
+  --line:#CFD6D0;
+  --c-hisse:#12312C;
+  --c-emtia:#A67C2E;
+  --c-enerji:#4B7F70;
+  --c-para:#B7C3BC;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.6;
+  font-variant-numeric:tabular-nums;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 22px 90px}
+
+/* ---------- header ---------- */
+header{padding:56px 0 34px;border-bottom:1px solid var(--line)}
+h1{
+  font-family:"Source Serif 4",Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5vw,46px);line-height:1.08;letter-spacing:-.015em;
+  margin:0 0 10px;
+}
+.lede{font-size:17px;color:var(--ink-soft);max-width:56ch;margin:0 0 26px}
+.meta{display:flex;flex-wrap:wrap;gap:26px}
+.meta div{min-width:120px}
+.meta dt{font-size:12.5px;color:var(--muted);letter-spacing:.02em;margin-bottom:2px}
+.meta dd{margin:0;font-size:19px;font-weight:600;font-family:"Source Serif 4",Georgia,serif}
+
+/* ---------- sections ---------- */
+section{padding:44px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+h2{
+  font-family:"Source Serif 4",Georgia,serif;font-weight:600;
+  font-size:25px;letter-spacing:-.01em;margin:0 0 6px;
+}
+.sub{color:var(--muted);margin:0 0 24px;max-width:62ch;font-size:14.5px}
+p{max-width:66ch}
+
+/* ---------- chips ---------- */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{
+  font:inherit;font-size:13.5px;cursor:pointer;
+  background:transparent;color:var(--ink-soft);
+  border:1px solid var(--line);border-radius:999px;padding:6px 15px;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.chip:hover{border-color:var(--ink-soft)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#F6F7F4;border-color:var(--ink)}
+.chip:focus-visible,button:focus-visible,tr:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ---------- ribbon ---------- */
+.ribbon{width:100%;height:74px;display:block;margin-bottom:14px}
+.ribbon rect{transition:opacity .25s}
+.ribbon .dim{opacity:.18}
+.rib-label{font-size:11.5px;font-weight:600;fill:#F6F7F4;font-family:Inter,sans-serif}
+.rib-label.dark{fill:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;color:var(--ink-soft)}
+.legend span{display:flex;align-items:center;gap:7px}
+.sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{
+  text-align:left;font-weight:500;font-size:12.5px;color:var(--muted);
+  padding:0 10px 9px 0;border-bottom:1px solid var(--line);white-space:nowrap;
+}
+th.r,td.r{text-align:right;padding-right:0}
+td{padding:11px 10px 11px 0;border-bottom:1px solid #DDE2DD;vertical-align:baseline}
+tr.frow{cursor:pointer}
+tr.frow:hover td{background:#E3E8E3}
+tr.faded td{opacity:.3}
+.kod{font-weight:600;font-family:"Source Serif 4",Georgia,serif;font-size:16px}
+.tag{font-size:11px;padding:2px 7px;border-radius:3px;white-space:nowrap;font-weight:500}
+.tag.k{background:#DCE8E1;color:#2F6B4F}
+.tag.c{background:#E2E5E2;color:#5A6862}
+.pos{color:var(--pos);font-weight:600}
+.det td{background:#E5E9E5;font-size:13.5px;color:var(--ink-soft);padding:12px 14px}
+.det.hide{display:none}
+.dgrid{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:8px}
+.dgrid b{display:block;font-size:11.5px;color:var(--muted);font-weight:500}
+
+/* ---------- perf bars ---------- */
+.bars{margin-top:6px}
+.bar{display:grid;grid-template-columns:52px 1fr 62px;align-items:center;gap:12px;padding:5px 0}
+.bar .track{background:#DFE4DF;height:16px;border-radius:2px;overflow:hidden}
+.bar .fill{height:100%;border-radius:2px;transform-origin:left;animation:grow .8s cubic-bezier(.2,.7,.3,1) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.bar .val{text-align:right;font-size:13.5px;font-weight:600}
+
+/* ---------- scenario ---------- */
+.scen-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:34px;margin:22px 0 26px}
+.bignum{font-family:"Source Serif 4",Georgia,serif;font-size:clamp(38px,7vw,60px);font-weight:600;line-height:1;letter-spacing:-.02em}
+.delta{font-size:19px;font-weight:600;margin-top:6px}
+.scen-note{max-width:38ch;color:var(--ink-soft);font-size:14.5px}
+.scols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.scol{background:var(--card);border:1px solid var(--line);padding:14px 15px}
+.scol.on{border-color:var(--ink);background:#E3E8E3}
+.scol h3{margin:0 0 4px;font-size:14px;font-weight:600}
+.scol .v{font-family:"Source Serif 4",Georgia,serif;font-size:21px;font-weight:600}
+.scol .p{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+/* ---------- timeline ---------- */
+.tl{list-style:none;padding:0;margin:8px 0 0;border-left:2px solid var(--line)}
+.tl li{position:relative;padding:0 0 26px 24px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{
+  content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;
+  border-radius:50%;background:var(--paper);border:2px solid var(--ink);
+}
+.tl li.done::before{background:var(--ink)}
+.tl li.gold::before{border-color:var(--gold);background:var(--gold)}
+.tl .when{font-weight:600;font-size:15px}
+.tl .what{color:var(--ink-soft);font-size:14px}
+.tl .amt{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:15px}
+
+/* ---------- rules ---------- */
+.rules{list-style:none;padding:0;margin:0;counter-reset:r}
+.rules li{
+  counter-increment:r;position:relative;padding:14px 0 14px 42px;
+  border-bottom:1px solid #DDE2DD;max-width:70ch;
+}
+.rules li:last-child{border-bottom:none}
+.rules li::before{
+  content:counter(r);position:absolute;left:0;top:14px;
+  width:25px;height:25px;border-radius:50%;background:var(--ink);color:#F6F7F4;
+  font-size:12.5px;font-weight:600;display:grid;place-items:center;
+}
+.rules b{display:block;font-weight:600}
+.rules span{color:var(--ink-soft);font-size:14px}
+
+.callout{background:var(--card);border-left:3px solid var(--gold);padding:16px 20px;margin-top:24px;max-width:70ch}
+.callout p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+footer{padding:30px 0 0;color:var(--muted);font-size:12.5px;max-width:78ch;border-top:1px solid var(--line)}
+
+@media (max-width:640px){
+  .scols{grid-template-columns:1fr}
+  .hide-s{display:none}
+  .bar{grid-template-columns:46px 1fr 56px}
+  header{padding:36px 0 26px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Fon portföyü planı</h1>
+  <p class="lede">400.000 TL'lik sermayenin on fona dağıtımı, üç aylık beklenti aralığı ve 14 Aralık'ta yapılacak değerlendirme.</p>
+  <dl class="meta">
+    <div><dt>Toplam sermaye</dt><dd>400.000 ₺</dd></div>
+    <div><dt>Fon sayısı</dt><dd>10</dd></div>
+    <div><dt>Tam yerleşim</dt><dd>14 Eylül 2026</dd></div>
+    <div><dt>Değerlendirme günü</dt><dd>14 Aralık 2026</dd></div>
+  </dl>
+</header>
+
+<section>
+  <h2>Paranın dağılımı</h2>
+  <p class="sub">Şeritteki her blok bir fonu ve büyüklüğü o fona ayrılan tutarı gösteriyor. Renkler yatırımın hangi alana gittiğini ayırıyor.</p>
+  <div class="chips" role="group" aria-label="Fon filtresi">
+    <button class="chip" data-filter="all" aria-pressed="true">Tümü</button>
+    <button class="chip" data-filter="katilim" aria-pressed="false">Katılım fonları</button>
+    <button class="chip" data-filter="konv" aria-pressed="false">Konvansiyonel fonlar</button>
+  </div>
+  <svg class="ribbon" id="ribbon" viewBox="0 0 1000 74" preserveAspectRatio="none" role="img" aria-label="Fonların portföy içindeki payları"></svg>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--c-hisse)"></i>Hisse ve serbest fonlar · 200.000 ₺</span>
+    <span><i class="sw" style="background:var(--c-para)"></i>Para piyasası · 100.000 ₺</span>
+    <span><i class="sw" style="background:var(--c-emtia)"></i>Altın ve gümüş · 50.000 ₺</span>
+    <span><i class="sw" style="background:var(--c-enerji)"></i>Enerji · 50.000 ₺</span>
+  </div>
+</section>
+
+<section>
+  <h2>Fonlar</h2>
+  <p class="sub">Bir satıra dokunduğunda o fonun ayrıntısı açılır. Katılım fonlarının tamamı Kuveyt Türk hesabında, diğerleri Midas'ta.</p>
+  <table id="ftable">
+    <thead>
+      <tr>
+        <th>Kod</th><th>Fon</th><th class="hide-s">Tür</th>
+        <th class="r">Tutar</th><th class="r">Pay</th><th class="r">Son 3 ay</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Son üç ayda ne oldu</h2>
+  <p class="sub">Bu rakamlar geçmişe ait; portföy henüz kurulmadığı için Zeynep bu getirileri elde etmedi. Fonların karakterini anlamak için buradalar.</p>
+  <div class="bars" id="bars"></div>
+  <div class="callout">
+    <p>Düşük riskli üç fonun hepsi %10–12,5 aralığında toplandı. Yüksek riskli tarafta sonuçlar %4 ile %64 arasına yayıldı. Yüksek risk, yüksek getiri sözü değil; geniş sonuç aralığı demek. Portföyün dörtte birinin para piyasasında durmasının sebebi bu.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Üç ay sonra ne bekliyoruz</h2>
+  <p class="sub">Tek bir rakam yerine üç ihtimal. Para piyasası bölümü her senaryoda yaklaşık %11 getiriyor; değişen kısım geri kalan 300.000 TL.</p>
+  <div class="chips" role="group" aria-label="Senaryo seçimi">
+    <button class="chip" data-scen="0" aria-pressed="false">Baskı</button>
+    <button class="chip" data-scen="1" aria-pressed="true">Baz</button>
+    <button class="chip" data-scen="2" aria-pressed="false">Momentum</button>
+  </div>
+  <div class="scen-head">
+    <div>
+      <div class="bignum" id="sVal">453.000 ₺</div>
+      <div class="delta" id="sDelta">+53.000 ₺ · %13,3</div>
+    </div>
+    <p class="scen-note" id="sNote"></p>
+  </div>
+  <div class="scols" id="scols"></div>
+  <div class="callout">
+    <p>Hedef olarak baz senaryoyu almanı öneririm. Momentum senaryosunu hedef yaparsan iyi giden bir çeyrek bile yetersiz hissettirir; baz senaryoyu hedef yaparsan fazlası ikramiye olur.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Giriş takvimi</h2>
+  <p class="sub">Para tek seferde değil iki dilimde giriyor. Bu, son üç ayda çok yükselmiş fonlara zirveden girme riskini bir miktar azaltıyor.</p>
+  <ul class="tl">
+    <li class="done"><span class="when">Halihazırda</span> <span class="amt">50.000 ₺</span><br><span class="what">KLU — Kuveyt Türk Para Piyasası Katılım. Ekleme de çıkış da yok.</span></li>
+    <li><span class="when">7 Eylül, Pazartesi</span> <span class="amt">100.000 ₺</span><br><span class="what">DOH 50.000 ₺ · DFI 50.000 ₺</span></li>
+    <li><span class="when">14 Eylül, Pazartesi</span> <span class="amt">250.000 ₺</span><br><span class="what">TLY 50.000 ₺ · THF 50.000 ₺ · KNJ 50.000 ₺ · TP2 25.000 ₺ · HKJ 25.000 ₺ · KGM 25.000 ₺ · KZU 25.000 ₺</span></li>
+    <li class="gold"><span class="when">14 Aralık, Pazartesi</span> <span class="amt">Değerlendirme</span><br><span class="what">Çıkış günü değil, karar günü. Aşağıdaki dört soru sorulur.</span></li>
+  </ul>
+  <div class="callout">
+    <p>14 Eylül'ü bekleyecek 250.000 TL bir hafta boşta kalacak. İstersen 7 Eylül'de aynı gün nakde dönebilen bir para piyasası fonuna (HKJ ya da TP2) park edip 14 Eylül'de oradan dağıtabilirsin.</p>
+  </div>
+</section>
+
+<section>
+  <h2>14 Aralık'ta sorulacaklar</h2>
+  <p class="sub">Bu tarih bir çıkış tarihi değil. Amaç, portföyü duygusal değil kurallı biçimde gözden geçirmek.</p>
+  <ol class="rules">
+    <li><b>TLY ve KGM hâlâ yukarı mı gidiyor?</b><span>İkisi de büyük bir yükselişin ardından alındı. Grafikleri yataylaştıysa ya da aşağı döndüyse ağırlığı azaltmak masaya gelir. Geçmiş getiriye duygusal bağlılık en pahalı alışkanlıktır.</span></li>
+    <li><b>KNJ toparlanmayı sürdürdü mü?</b><span>Alım yapıldığında üç aylık en yüksek seviyesindeydi. Bu seviye korunuyorsa fonun hikâyesi çalışıyor demektir.</span></li>
+    <li><b>Altın ve gümüş dengeleyici görevini yaptı mı?</b><span>Hisse tarafının düştüğü bir dönemde KZU ve KGM yukarı gittiyse portföy doğru kurulmuş demektir. Düşük getirileri tek başına sorun değil; bu ikisi kazandırmak için değil korumak için var.</span></li>
+    <li><b>Hisse fonlarının payı büyüdü mü?</b><span>Değerleri arttıysa portföydeki %50'lik payları kendiliğinden %55–60'a çıkmış olabilir. O zaman bir miktar kâr alıp dengeyi geri kurmak gerekir.</span></li>
+  </ol>
+  <div class="callout">
+    <p>Aralık'ı beklemeden bakılacak iki durum: herhangi bir fonda %20'yi aşan düşüş, ya da acil nakit ihtiyacı. İkinci durumda önce aynı gün nakde dönebilen fonlardan (HKJ, TP2, KLU) çıkılır; hisse fonları en son bozulur.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Hazırlayan: Yusuf Küçükağa · 6 Eylül 2026. Bu belge bilgilendirme ve takip amaçlıdır, yatırım danışmanlığı değildir. Getiri rakamları geçmişe aittir ve gelecekteki getirinin güvencesi değildir. Senaryolar varsayıma dayalı hesaplamalardır; gerçekleşen sonuç bu aralığın dışına da çıkabilir. DFI için üç aylık kesin veri bulunamadığı için bir aylık getiri kullanılmıştır. İşlem öncesinde güncel TEFAS ve kurucu verileri teyit edilmelidir.</p>
+</footer>
+
+</div>
+
+<script>
+const FUNDS=[
+ {k:"DFI",ad:"Atlas Portföy Serbest",tur:"Serbest",cls:"hisse",kat:false,risk:7,tl:50000,r3:15.52,st:"%17,5",val:"T+1 / T+2",pf:"Midas",gun:"7 Eylül",not:"Portföyünün yaklaşık yarısı tek bir hisseye bağlı. Üç aylık kesin veri yok; tablodaki rakam bir aylık getiri.",yildiz:true},
+ {k:"DOH",ad:"Tera 4. Hisse Senedi Serbest",tur:"Hisse",cls:"hisse",kat:false,risk:6,tl:50000,r3:15.84,st:"%0",val:"T+1 / T+2",pf:"Midas",gun:"7 Eylül",not:"Stopajsız hisse fonu. Son haftalarda momentum güçlendi."},
+ {k:"THF",ad:"Tera Hisse Senedi (Yoğun)",tur:"Hisse",cls:"hisse",kat:false,risk:6,tl:50000,r3:28.87,st:"%0",val:"T+1 / T+2",pf:"Midas",gun:"14 Eylül",not:"Stopajsız ve güçlü üç aylık performans. Portföyün hisse motorlarından biri."},
+ {k:"TLY",ad:"Tera Birinci Serbest",tur:"Serbest",cls:"hisse",kat:false,risk:7,tl:50000,r3:63.29,st:"%17,5",val:"T+1 / T+2",pf:"Midas",gun:"14 Eylül",not:"Üç ayda neredeyse kesintisiz yükseldi, ciddi bir geri çekilme yaşatmadı. Bu kadar pürüzsüz bir yükseliş her zaman düşük risk anlamına gelmez."},
+ {k:"TP2",ad:"Tera Para Piyasası",tur:"Para piyasası",cls:"para",kat:false,risk:2,tl:25000,r3:12.54,st:"%17,5",val:"T+0 / T+0",pf:"Midas",gun:"14 Eylül",not:"Aynı gün nakde dönebilir. Portföyün likit çekirdeği."},
+ {k:"HKJ",ad:"Hedef Para Piyasası Serbest",tur:"Para piyasası",cls:"para",kat:false,risk:1,tl:25000,r3:11.61,st:"%0,5",val:"T+0 / T+0",pf:"Midas",gun:"14 Eylül",not:"En düşük riskli fon. Aynı gün nakde dönebilir, stopajı da düşük."},
+ {k:"KNJ",ad:"Kuveyt Türk Enerji Katılım",tur:"Enerji",cls:"enerji",kat:true,risk:5,tl:50000,r3:9.36,st:"%0,5",val:"T+1 / T+2",pf:"Kuveyt Türk",gun:"14 Eylül",not:"Dönemin ilk yarısında düştü, ikinci yarısında toparlandı ve üç aylık en yüksek seviyesinde kapattı."},
+ {k:"KZU",ad:"Kuveyt Türk İkinci Altın Katılım",tur:"Altın",cls:"emtia",kat:true,risk:6,tl:25000,r3:4.41,st:"%0,5",val:"T+1 / T+1",pf:"Kuveyt Türk",gun:"14 Eylül",not:"Getirisi düşük görünüyor ama görevi kazandırmak değil dengelemek. Yol boyunca sert iniş çıkışlar yaşadı."},
+ {k:"KGM",ad:"Kuveyt Türk Gümüş Katılım",tur:"Gümüş",cls:"emtia",kat:true,risk:6,tl:25000,r3:63.88,st:"%0,5",val:"T+1 / T+2",pf:"Kuveyt Türk",gun:"14 Eylül",not:"Portföyün en yüksek üç aylık getirisi, ama aynı zamanda en oynak fonu."},
+ {k:"KLU",ad:"Kuveyt Türk Para Piyasası Katılım",tur:"Para piyasası",cls:"para",kat:true,risk:1,tl:50000,r3:10.05,st:"%0,5",val:"T+0 / T+0",pf:"Kuveyt Türk",gun:"Mevcut",not:"Zaten elde olan pozisyon. Ekleme ya da çıkış yapılmayacak; portföyün sakin çapası."}
+];
+const CLSCOL={hisse:"#12312C",emtia:"#A67C2E",enerji:"#4B7F70",para:"#B7C3BC"};
+const TOTAL=400000;
+function fmt(n){
+  var s=String(Math.abs(Math.round(n))),o="";
+  for(var i=0;i<s.length;i++){ if(i>0&&(s.length-i)%3===0)o+="."; o+=s[i]; }
+  return (n<0?"-":"")+o;
+}
+function pct(n,d){
+  d=(d===undefined)?2:d;
+  var v=Math.abs(n).toFixed(d).split(".");
+  return (n<0?"-":"")+fmt(parseFloat(v[0]))+(v[1]?","+v[1]:"");
+}
+
+/* ---- ribbon ---- */
+const rib=document.getElementById("ribbon");
+let x=0;
+FUNDS.forEach(f=>{
+  const w=f.tl/TOTAL*1000;
+  const g=document.createElementNS("http://www.w3.org/2000/svg","g");
+  g.dataset.kod=f.k; g.dataset.kat=f.kat?"katilim":"konv";
+  const r=document.createElementNS("http://www.w3.org/2000/svg","rect");
+  r.setAttribute("x",x+1);r.setAttribute("y",0);r.setAttribute("width",Math.max(w-2,1));
+  r.setAttribute("height",74);r.setAttribute("fill",CLSCOL[f.cls]);
+  const t=document.createElementNS("http://www.w3.org/2000/svg","text");
+  t.setAttribute("x",x+w/2);t.setAttribute("y",42);t.setAttribute("text-anchor","middle");
+  t.setAttribute("class","rib-label"+(f.cls==="para"?" dark":""));
+  t.textContent=f.k;
+  g.appendChild(r);g.appendChild(t);rib.appendChild(g);
+  x+=w;
+});
+
+/* ---- table ---- */
+const tb=document.querySelector("#ftable tbody");
+FUNDS.forEach((f,i)=>{
+  const tr=document.createElement("tr");
+  tr.className="frow";tr.tabIndex=0;tr.dataset.kat=f.kat?"katilim":"konv";
+  tr.setAttribute("aria-expanded","false");
+  tr.innerHTML=`
+    <td><span class="kod">${f.k}</span></td>
+    <td>${f.ad}<br><span class="tag ${f.kat?'k':'c'}">${f.kat?'Katılım':'Konvansiyonel'}</span></td>
+    <td class="hide-s">${f.tur}</td>
+    <td class="r">${fmt(f.tl)} ₺</td>
+    <td class="r">%${pct(f.tl/TOTAL*100)}</td>
+    <td class="r pos">+%${pct(f.r3)}${f.yildiz?"*":""}</td>`;
+  const dt=document.createElement("tr");
+  dt.className="det hide";
+  dt.innerHTML=`<td colspan="6">
+    <div class="dgrid">
+      <div><b>Risk</b>${f.risk} / 7</div>
+      <div><b>Stopaj</b>${f.st}</div>
+      <div><b>Valör (alış / satış)</b>${f.val}</div>
+      <div><b>Hesap</b>${f.pf}</div>
+      <div><b>Giriş</b>${f.gun}</div>
+    </div>${f.not}</td>`;
+  const tog=()=>{const h=dt.classList.toggle("hide");tr.setAttribute("aria-expanded",String(!h));};
+  tr.addEventListener("click",tog);
+  tr.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog();}});
+  tb.appendChild(tr);tb.appendChild(dt);
+});
+
+/* ---- filter ---- */
+document.querySelectorAll("[data-filter]").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("[data-filter]").forEach(o=>o.setAttribute("aria-pressed",String(o===b)));
+    const f=b.dataset.filter;
+    rib.querySelectorAll("g").forEach(g=>{
+      const on=(f==="all"||g.dataset.kat===f);
+      g.querySelector("rect").classList.toggle("dim",!on);
+    });
+    document.querySelectorAll("tr.frow").forEach(tr=>{
+      tr.classList.toggle("faded",!(f==="all"||tr.dataset.kat===f));
+    });
+  });
+});
+
+/* ---- performance bars ---- */
+const bars=document.getElementById("bars");
+const maxR=Math.max(...FUNDS.map(f=>f.r3));
+[...FUNDS].sort((a,b)=>b.r3-a.r3).forEach((f,i)=>{
+  const d=document.createElement("div");d.className="bar";
+  d.innerHTML=`<span class="kod">${f.k}</span>
+    <span class="track"><span class="fill" style="width:${f.r3/maxR*100}%;background:${CLSCOL[f.cls]};animation-delay:${i*55}ms"></span></span>
+    <span class="val">+%${pct(f.r3)}</span>`;
+  bars.appendChild(d);
+});
+
+/* ---- scenarios ---- */
+const SAFE=100000, RISKY=300000, SAFE_R=0.11;
+const SCEN=[
+ {ad:"Baskı",r:-0.15,not:"Borsada bir düzeltme, altın ve gümüşte geri çekilme. Portföy 366.000 TL'yi görür. Bu bir başarısızlık değil, planın içinde tanımlı dalgalanma."},
+ {ad:"Baz",r:0.14,not:"Son üç ayki hızın yaklaşık yarısı devam eder. Planlamayı bu rakam üzerine kurmak en sağlıklısı."},
+ {ad:"Momentum",r:0.2784,not:"Son üç ay aynen tekrar eder. Mümkün, ama varsayılan kabul edilmemeli — iki fon zaten büyük bir yükselişin ardından alınıyor."}
+];
+const scols=document.getElementById("scols");
+SCEN.forEach((s,i)=>{
+  const v=SAFE*(1+SAFE_R)+RISKY*(1+s.r);
+  const d=document.createElement("div");d.className="scol";d.dataset.i=i;
+  d.innerHTML=`<h3>${s.ad}</h3><div class="v">${fmt(v)} ₺</div>
+    <div class="p">Riskli bölüm ${s.r<0?"":"+"}%${pct(s.r*100)} · para piyasası +%11</div>`;
+  scols.appendChild(d);
+});
+function setScen(i){
+  const s=SCEN[i], v=SAFE*(1+SAFE_R)+RISKY*(1+s.r), dv=v-TOTAL;
+  document.getElementById("sVal").textContent=fmt(v)+" ₺";
+  const el=document.getElementById("sDelta");
+  el.textContent=(dv>=0?"+":"−")+fmt(Math.abs(dv))+" ₺ · "+(dv>=0?"+":"−")+"%"+pct(Math.abs(dv/TOTAL*100));
+  el.style.color=dv>=0?"var(--pos)":"var(--neg)";
+  document.getElementById("sNote").textContent=s.not;
+  document.querySelectorAll("[data-scen]").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.scen===i)));
+  document.querySelectorAll(".scol").forEach(c=>c.classList.toggle("on",+c.dataset.i===i));
+}
+document.querySelectorAll("[data-scen]").forEach(b=>b.addEventListener("click",()=>setScen(+b.dataset.scen)));
+setScen(1);
+</script>
+</body>
+</html>
